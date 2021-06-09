@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useEffect, lazy, Suspense } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+const About = lazy(() => import("./components/about"));
 
 function App() {
+  const [title, setTitle] = useState("Thushara");
+  useEffect(() => {
+    document.title = title;
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      App component
+      <Router>
+        <Suspense fallback={<div>...Loading</div>}>
+          <Route path="/about">
+            <About></About>
+          </Route>
+        </Suspense>
+      </Router>
     </div>
   );
 }
